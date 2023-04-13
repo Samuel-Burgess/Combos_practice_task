@@ -20,5 +20,17 @@ combos = {  # made the dictionary
     }
 }
 
-eg.msgbox(combos)
 
+def welcome():
+    instructions = eg.buttonbox("Welcome to our combo program!\n"
+                                "If you are new, or haven't used this program before please select the -Display Instructions- button"
+                                ", but if you have used this program before please press -skip-", "Welcome!",
+                                ["Display Instructions", "skip"])
+
+    if instructions == "Display Instructions":
+        eg.msgbox("As you go through the menu, you will be prompted by messages and multichoice options in boxes, "
+                  "like the one you are reading this from now. "
+                  "please navigate through the program using the buttons on these boxes.", "Instructions")
+
+
+welcome()
