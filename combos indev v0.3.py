@@ -1,4 +1,4 @@
-"""Fast food combos program indev v0.2"""
+"""Fast food combos program indev v0.3"""
 
 import easygui as eg
 
