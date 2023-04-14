@@ -34,23 +34,38 @@ def welcome():
 
 
 def main_menu():
-    """filler"""
+    option = eg.buttonbox("What would you like to do?", "Main Menu", ["Add combo", "Find combo", "Delete combo",
+                                                                      "Output all", "Exit"])
+    if option == "Add combo":
+        add_combos()
+    elif option == "Find combo":
+        search_for_combos()
+    elif option == "Delete combo":
+        delete_combos()
+    elif option == "Output all":
+        print_combos()
+    else:
+        eg.msgbox("Thank you for using our program", "Goodbye")
 
 
 def add_combos():
-    """filler"""
+    print("add combos")
 
 
 def search_for_combos():
-    """filler"""
+    print("find combos")
 
 
 def delete_combos():
-    """filler"""
+    print("delete combos")
 
 
 def edit_combos():
-    """filler"""
+    print("edit combos")
+
+
+def print_combos():
+    print(combos)
 
 
 welcome()
