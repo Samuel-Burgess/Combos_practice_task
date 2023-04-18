@@ -34,10 +34,12 @@ def welcome():
 
 
 def main_menu():
+    global combos
     option = eg.buttonbox("What would you like to do?", "Main Menu", ["Add combo", "Find combo", "Delete combo",
                                                                       "Output all", "Exit"])
     if option == "Add combo":
-        add_combos()
+        combos |= add_combos()
+        main_menu()
     elif option == "Find combo":
         search_for_combos()
     elif option == "Delete combo":
@@ -51,8 +53,22 @@ def main_menu():
 def add_combos():
     combo_name = eg.enterbox("Please enter the name of the combo:", "Combo name")
     new_combo = {}
-
-
+    add_item = "Yes"
+    while add_item == "Yes":
+        float_check = "False"
+        item = eg.enterbox("Please enter the name of the item you are adding to the combo:", "Add item")
+        while float_check == "False":
+            price = eg.enterbox(f"Please enter the price of a {item}:", "Price")
+            try:
+                if float(price) < 0.5 or float(price) > 100:
+                    price = "null"
+                float_num = float(price)
+                float_check = "True"
+            except ValueError:
+                eg.msgbox("please enter a float number between 0.50 and 100.0")
+        new_combo[item] = price
+        add_item = eg.buttonbox("Do you want to add another item?", "Add more items", ["Yes", "No"])
+    return {combo_name: new_combo}
 
 
 def search_for_combos():
