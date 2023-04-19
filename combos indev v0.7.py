@@ -72,7 +72,20 @@ def add_combos():
 
 
 def search_for_combos():
-    print("Find combos")
+    search_query = eg.enterbox("Enter the name of the combo you are finding:", "Find Combos")
+    found_combos = []
+
+    for name, items in combos.items():
+        if search_query.lower() in name.lower():
+            found_combos.append(name)
+
+    if found_combos:
+        combo_name = eg.choicebox("Select combo to edit:", "Search Results", found_combos)
+        edit_combos(combo_name)
+        main_menu()
+    else:
+        eg.msgbox("No combos found matching the search query.")
+    main_menu()
 
 
 def delete_combos():
@@ -90,7 +103,7 @@ def edit_combos(combo_name):
         msg += "ITEM\tPRICE\n"
         msg += "-" * 20 + "\n"
         for item_name, item_price in combo.items():
-            msg += f"{item_name}\t${item_price:.2f}\n"
+            msg += f"{item_name}\t${float(item_price):.2f}\n"
         eg.msgbox(msg, "Edit Combo")
         action = eg.buttonbox("What would you like to do?", "Editing options", ["Add Item", "Edit Item", "Delete Item", "Rename Combo", "Done"])
         if action == "Done":
