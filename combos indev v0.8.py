@@ -157,7 +157,14 @@ def edit_combos(combo_name):
 
 
 def print_combos():
-    print(combos)
+    print("Available Combos:")
+    print("Name\t\t\t\t\t\t\tItems\t\t\t\t\t\t\t\t\t\tPrice")
+    print("-" * 80)
+    for name, items in combos.items():
+        items_str = ", ".join(items.keys())
+        total_price = sum(items.values())
+        print(f"{name}\t{' '*(24-len(name))}{items_str}\t{' '*(48-len(items_str))}${total_price:.2f}")
+    main_menu()
 
 
 welcome()
