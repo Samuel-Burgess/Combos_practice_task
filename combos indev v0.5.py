@@ -76,11 +76,67 @@ def search_for_combos():
 
 
 def delete_combos():
-    print("delete combos")
 
 
-def edit_combos():
-    print("edit combos")
+
+def edit_combos(combo_name):
+    while True:
+        combo = combos[combo_name]
+        msg = f"Current combo you are editing: {combo_name}\n\n"
+        msg += "ITEM\tPRICE\n"
+        msg += "-" * 20 + "\n"
+        for item_name, item_price in combo.items():
+            msg += f"{item_name}\t${item_price:.2f}\n"
+        eg.msgbox(msg, "Edit Combo")
+        action = eg.buttonbox("What would you like to do?", "Editing options", ["Add Item", "Edit Item", "Delete Item", "Rename Combo", "Done"])
+        if action == "Done":
+            break
+        elif action == "Add Item":
+            while True:
+                item = eg.enterbox("Please enter the name of the item you are adding to the combo:", "Add item")
+                if item is None:
+                    break
+                try:
+                    price = float(eg.enterbox(f"Please enter the price of a {item}:", "Price"))
+                    if price < 0.5 or price > 100:
+                        raise ValueError
+                    combo[item] = price
+                    break
+                except ValueError:
+                    eg.msgbox("Please enter a float number between 0.50 and 100.0", "Invalid price")
+        elif action == "Edit Item":
+            item_name = eg.choicebox("Choose an item to edit:", choices=list(combo.keys()), title="Edit Item")
+            if item_name is None:
+                continue
+            while True:
+                try:
+                    item_price = float(eg.enterbox(f"Enter new price for {item_name}:", "Enter new price"))
+                    if item_price < 0.5 or item_price > 100:
+                        raise ValueError
+                    combo[item_name] = item_price
+                    break
+                except ValueError:
+                    eg.msgbox("Please enter a float number between 0.50 and 100.0", "Invalid price")
+        elif action == "Delete Item":
+            item_name = eg.choicebox("Choose an item to delete:", choices=list(combo.keys()), title="Delete Item")
+            if item_name is None:
+                continue
+            del combo[item_name]
+        elif action == "Rename Combo":
+            while True:
+                new_combo_name = eg.enterbox("Enter new name for the combo:", "Rename Combo")
+                if new_combo_name is None:
+                    break
+                if new_combo_name in combos:
+                    eg.msgbox("Combo name already exists. Please choose a different name.", "Invalid name")
+                    continue
+                combos[new_combo_name] = combos.pop(combo_name)
+                combo_name = new_combo_name
+                break
+    items = [f"{item}: {price}" for item, price in combo.items()]
+    combo_details = "\n".join(items)
+    eg.msgbox(f"The {combo_name.capitalize()} combo has been updated.\n\nNew combo details:\n{combo_details}", "Combo Updated")
+    return {combo_name: combo}
 
 
 def print_combos():
