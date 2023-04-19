@@ -76,7 +76,11 @@ def search_for_combos():
 
 
 def delete_combos():
-
+    combo_name = eg.choicebox("Choose a combo to delete:", "Delete Combo", choices=list(combos.keys()))
+    if combo_name is not None:
+        del combos[combo_name]
+        eg.msgbox(f"The {combo_name.capitalize()} combo has been deleted.", "Combo Deleted")
+    main_menu()
 
 
 def edit_combos(combo_name):
